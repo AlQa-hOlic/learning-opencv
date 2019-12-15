@@ -1,0 +1,29 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "CMake",
+            "type": "shell",
+            "command": "cd ${fileDirname} && mkdir build && cd build && cmake -G \"Unix Makefiles\" ..",
+            "group": "build"
+        },
+        {
+            "label": "Make",
+            "type": "shell",
+            "command": "cd ${fileDirname}/build && make",
+            // "windows": {
+            //     "command": "cd ${fileDirname} && make"
+            // },
+            "group": "build"
+        },
+        {
+            "label": "Make and Run",
+            "type": "shell",
+            "command": "cd ${fileDirname}/build && make && ./${fileBasenameNoExtension}",
+            // "windows": {
+            //     "command": "cd ${fileDirname} && make"
+            // },
+            "group": "build"
+        }
+    ]
+}

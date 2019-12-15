@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 2.8 FATAL_ERROR)
 
-project("Matrix Operations")
+project("Matrix_Operations")
 
-add_executable("Matrix Operations" main.cpp)
+add_executable("Matrix_Operations" main.cpp)
