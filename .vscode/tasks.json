@@ -5,7 +5,11 @@
             "label": "CMake",
             "type": "shell",
             "command": "cd ${fileDirname} && mkdir build && cd build && cmake -G \"Unix Makefiles\" ..",
-            "group": "build"
+            "group": "build",
+            "presentation": {
+                "reveal": "silent",
+                "panel": "new"
+            }
         },
         {
             "label": "Make",
@@ -14,7 +18,11 @@
             // "windows": {
             //     "command": "cd ${fileDirname} && make"
             // },
-            "group": "build"
+            "group": "build",
+            "presentation": {
+                "reveal": "silent",
+                "panel": "new"
+            }
         },
         {
             "label": "Make and Run",
@@ -23,7 +31,11 @@
             // "windows": {
             //     "command": "cd ${fileDirname} && make"
             // },
-            "group": "build"
+            "group": "build",
+            "presentation": {
+                "reveal": "silent",
+                "panel": "new"
+            }
         }
     ]
 }
