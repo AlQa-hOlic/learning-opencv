@@ -16,6 +16,7 @@ void callback(int state, void* userdata);
 int main(int argc, char **argv)
 {
     src = imread(samples::findFile("./../test.jpg"), IMREAD_GRAYSCALE);
+
     namedWindow("Out", WINDOW_AUTOSIZE);
     createTrackbar("Should invert", "Out", &should_invert, 1, callback, 0);
     createTrackbar("Threshold", "Out", &threshold_value, 255, callback, 0);

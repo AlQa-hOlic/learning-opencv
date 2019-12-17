@@ -19,14 +19,14 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON) #...is required...
 set(CMAKE_CXX_EXTENSIONS OFF) #...without compiler extensions like gnu++11
 
 
-add_executable("invert" invert.cpp)
-target_link_libraries( "invert" ${OpenCV_LIBS} )
+add_executable("inverse" inverse.cpp)
+target_link_libraries( "inverse" ${OpenCV_LIBS} )
+
+add_executable("threshold" threshold.cpp)
+target_link_libraries( "threshold" ${OpenCV_LIBS} )
 
 add_executable("rotate" rotate.cpp)
 target_link_libraries( "rotate" ${OpenCV_LIBS} )
 
 add_executable("text_overlay" text_overlay.cpp)
 target_link_libraries( "text_overlay" ${OpenCV_LIBS} )
-
-add_executable("threshold_sample" threshold_sample.cpp)
-target_link_libraries( "threshold_sample" ${OpenCV_LIBS} )

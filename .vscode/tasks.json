@@ -33,8 +33,9 @@
             // },
             "group": "build",
             "presentation": {
-                "reveal": "silent",
-                "panel": "new"
+                "reveal": "always",
+                "panel": "new",
+                "focus": true,
             }
         }
     ]
