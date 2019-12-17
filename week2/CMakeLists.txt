@@ -19,6 +19,9 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON) #...is required...
 set(CMAKE_CXX_EXTENSIONS OFF) #...without compiler extensions like gnu++11
 
 
+add_executable("invert" invert.cpp)
+target_link_libraries( "invert" ${OpenCV_LIBS} )
+
 add_executable("rotate" rotate.cpp)
 target_link_libraries( "rotate" ${OpenCV_LIBS} )
 
