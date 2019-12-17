@@ -15,6 +15,7 @@ int* matrixSubtraction(int* a, int* b, Size s);
 int* matrixMultiplication(int* a, int* b, Size sa, Size sb);
 int* matrixDivision(int* a, int* b, Size sa, Size sb);
 
+// I'm just getting started with c++ so don't judge me..lol
 int main(int argc,char** argv) {
     std::cout << "Matrix Math!" << std::endl;
 
