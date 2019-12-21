@@ -12,6 +12,10 @@ int main(int argc, char **argv)
 {
     Mat src = imread(samples::findFile("./../test.jpg"), IMREAD_GRAYSCALE);
 
+    int m = getOptimalDFTSize( src.rows );
+    int n = getOptimalDFTSize( src.cols );
+    copyMakeBorder(src, src, 0, m - src.rows, 0, n - src.cols, BORDER_CONSTANT, Scalar::all(0));
+
     src.convertTo(src,CV_64FC1, 1.0f/255.0f);
 
     dft(src, fourier);
