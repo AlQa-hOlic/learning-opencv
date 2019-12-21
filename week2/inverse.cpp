@@ -6,8 +6,7 @@
 using namespace cv;
 using namespace std;
 
-int main(int argc, char **argv)
-{
+int mat_inverse_test () {
     float data[] = {4.0,7.0,
                     2.0,6.0};
 
@@ -37,5 +36,36 @@ int main(int argc, char **argv)
 
     cout << "Output:" << endl << matrix << endl;
 
+    return 0;
+}
+
+int main(int argc, char **argv)
+{
+    // mat_inverse_test();
+    
+    Mat src = imread("./../test.jpg",IMREAD_GRAYSCALE);
+    // cvtColor(src,src,COLOR_BGR2GRAY);
+
+    src = src(Rect(0,0,src.cols,src.cols));
+
+    src.convertTo(src, CV_64F, 1.0f/255.0f);
+
+    imshow("square mat", src);
+
+    Mat inverted = src.inv(cv::DECOMP_SVD);
+
+    cout << inverted(Rect(100,100,10,10)) << endl;
+
+    imshow("inverted", inverted);
+
+
+    while (1)
+    {
+        char k = waitKey(1);
+        if (k == 27 || k == ' ')
+        {
+            break;
+        } 
+    }
     return 0;
 }
