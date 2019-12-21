@@ -14,15 +14,14 @@ int main(int argc, char **argv)
 
     src.convertTo(src,CV_64FC1, 1.0f/255.0f);
 
-    dft(src, fourier);            // this way the result may fit in the source matrix
-
+    dft(src, fourier);
 
     imshow("Original", src);
     
     imshow("Fourier Transform", fourier);
     moveWindow("Fourier Transform", 50, 50);
 
-    idft(fourier, ifourier, CV_HAL_DFT_SCALE | CV_HAL_DFT_REAL_OUTPUT );
+    idft(fourier, ifourier, CV_HAL_DFT_SCALE);
 
     imshow("Inverse Fourier Transform", ifourier);
     moveWindow("Inverse Fourier Transform", 100, 100);
