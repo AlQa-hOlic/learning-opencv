@@ -6,8 +6,6 @@
 using namespace cv;
 using namespace std;
 
-Mat fourier, ifourier;
-
 int main(int argc, char **argv)
 {
     Mat I = imread( samples::findFile( "./../lena.tiff" ), IMREAD_GRAYSCALE);

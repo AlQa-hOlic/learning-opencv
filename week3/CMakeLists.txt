@@ -19,5 +19,8 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON) #...is required...
 set(CMAKE_CXX_EXTENSIONS OFF) #...without compiler extensions like gnu++11
 
 
-add_executable("ffourier" ffourier.cpp)
-target_link_libraries( "ffourier" ${OpenCV_LIBS} )
+add_executable("fourier" fourier.cpp)
+target_link_libraries( "fourier" ${OpenCV_LIBS} )
+
+add_executable("filterfourier" filterfourier.cpp)
+target_link_libraries( "filterfourier" ${OpenCV_LIBS} )
