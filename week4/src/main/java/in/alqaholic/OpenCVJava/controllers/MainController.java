@@ -2,6 +2,7 @@ package in.alqaholic.OpenCVJava.controllers;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
+import in.alqaholic.OpenCVJava.Utils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -79,9 +80,17 @@ public class MainController implements Initializable {
     }
 
     public void invertImage(ActionEvent actionEvent) {
+        Stage stage = new Stage();
+        stage.setScene(new Scene(new Pane(new ImageView(Utils.invertImage(inputFile.getText())))));
+        stage.setTitle("Inverted");
+        stage.showAndWait();
     }
 
     public void visualizeFourier(ActionEvent actionEvent) {
+        Stage stage = new Stage();
+        stage.setScene(new Scene(new Pane(new ImageView(Utils.visualizeFourier(inputFile.getText())))));
+        stage.setTitle("Fourier");
+        stage.showAndWait();
     }
 
     public void setStage(Stage parent) {
