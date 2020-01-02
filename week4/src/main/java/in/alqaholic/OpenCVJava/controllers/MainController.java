@@ -16,12 +16,17 @@ import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import org.opencv.core.Core;
+import org.opencv.core.Mat;
+import org.opencv.imgcodecs.Imgcodecs;
 
 import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
+
+import static in.alqaholic.OpenCVJava.Utils.mat2Image;
 
 public class MainController implements Initializable {
     private final WritableImage ERROR_IMAGE = new WritableImage(48,48);
@@ -74,10 +79,22 @@ public class MainController implements Initializable {
 
     public void showImage(ActionEvent actionEvent) {
         Stage stage = new Stage();
-        stage.setScene(new Scene(new Pane(new ImageView(image.getImage()))));
+        Mat src = Imgcodecs.imread(inputFile.getText(), Imgcodecs.IMREAD_GRAYSCALE);
+
+        stage.setScene(new Scene(new Pane(new ImageView(mat2Image(src)))));
         stage.setTitle("Original");
         stage.showAndWait();
     }
+
+    public void transposeImage(ActionEvent actionEvent) {
+        Stage stage = new Stage();
+        Mat src = Imgcodecs.imread(inputFile.getText(), Imgcodecs.IMREAD_GRAYSCALE);
+        Core.transpose(src,src);
+        stage.setScene(new Scene(new Pane(new ImageView(mat2Image(src)))));
+        stage.setTitle("Transpose");
+        stage.showAndWait();
+    }
+
 
     public void invertImage(ActionEvent actionEvent) {
         Stage stage = new Stage();

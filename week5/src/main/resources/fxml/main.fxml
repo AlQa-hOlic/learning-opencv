@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.geometry.Insets?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.scene.image.ImageView?>
+<?import com.jfoenix.controls.JFXRippler?>
+<?import com.jfoenix.controls.JFXToolbar?>
+<?import javafx.scene.text.Text?>
+<?import com.jfoenix.controls.JFXComboBox?>
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="in.alqaholic.OpenCVJava.controllers.MainController"
+            stylesheets="@../css/main.css"
+            fx:id="root">
+    <top>
+        <HBox spacing="20" alignment="CENTER">
+            <padding>
+                <Insets topRightBottomLeft="10"></Insets>
+            </padding>
+            <JFXButton fx:id="openBtn" styleClass="btn" prefHeight="35" text="Open Camera" onAction="#openCam"></JFXButton>
+            <JFXButton fx:id="closeBtn" styleClass="btn" prefHeight="35" text="Stop Camera" onAction="#closeCam"></JFXButton>
+
+            <JFXComboBox fx:id="algorithm"></JFXComboBox>
+        </HBox>
+    </top>
+    <center>
+        <HBox spacing="20">
+            <padding>
+                <Insets topRightBottomLeft="20"></Insets>
+            </padding>
+            <ImageView fx:id="src_image_view" fitWidth="450" fitHeight="450" preserveRatio="true"></ImageView>
+            <ImageView fx:id="dst_image_view" fitWidth="450" fitHeight="450" preserveRatio="true"></ImageView>
+        </HBox>
+    </center>
+    <bottom>
+    </bottom>
+</BorderPane>

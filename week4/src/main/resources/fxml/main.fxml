@@ -13,7 +13,7 @@
 <BorderPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="in.alqaholic.OpenCVJava.controllers.MainController"
-            stylesheets="/css/main.css"
+            stylesheets="@../css/main.css"
             fx:id="root">
 
     <center>
@@ -25,7 +25,7 @@
                 <JFXTextField style="-fx-font-size:16px;" fx:id="inputFile" prefWidth="480" editable="false"></JFXTextField>
                 <JFXButton styleClass="btn" text="Open" onAction="#openImage"></JFXButton>
             </HBox>
-            <ImageView fx:id="image" fitHeight="48" fitWidth="48"></ImageView>
+            <ImageView fx:id="image" fitHeight="240" fitWidth="240"></ImageView>
         </VBox>
     </center>
     <bottom>
@@ -34,6 +34,7 @@
                 <Insets topRightBottomLeft="20"></Insets>
             </padding>
             <JFXButton styleClass="btn" text="Show Image" onAction="#showImage"></JFXButton>
+            <JFXButton styleClass="btn" text="Transpose" onAction="#transposeImage"></JFXButton>
             <JFXButton styleClass="btn" text="Invert Image" onAction="#invertImage"></JFXButton>
             <JFXButton styleClass="btn" text="Visualize Fourier Transform" onAction="#visualizeFourier"></JFXButton>
         </HBox>

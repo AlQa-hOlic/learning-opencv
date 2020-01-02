@@ -21,7 +21,7 @@ javafx {
 }
 
 
-mainClassName = 'in.alqaholic.OpenCVJava/in.alqaholic.OpenCVJava.GUI'
+mainClassName = 'in.alqaholic.OpenCVJava/in.alqaholic.AStarPathFinding.GUI'
 
 jlink {
     launcher{
@@ -39,7 +39,7 @@ dependencies {
 jar {
     manifest {
         attributes(
-                "Main-Class": "in.alqaholic.OpenCVJava.GUI",
+                "Main-Class": "in.alqaholic.AStarPathFinding.GUI",
 //                "Class-Path": configurations.compile.collect { it.getName() }.join(' ')
         )
     }
