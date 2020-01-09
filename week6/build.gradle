@@ -21,7 +21,7 @@ javafx {
 }
 
 
-mainClassName = 'in.alqaholic.OpenCVJava/in.alqaholic.AStarPathFinding.GUI'
+mainClassName = 'in.alqaholic.AStarPathFinding/in.alqaholic.AStarPathFinding.GUI'
 
 jlink {
     launcher{
@@ -33,7 +33,7 @@ dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.12'
 
     compile 'com.jfoenix:jfoenix:9.0.8'
-    compile files('lib/opencv-412.jar')
+//    compile files('lib/opencv-412.jar')
 }
 
 jar {

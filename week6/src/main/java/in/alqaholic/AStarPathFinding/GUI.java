@@ -8,26 +8,25 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import org.opencv.core.Core;
 
 import java.io.File;
 
 public class GUI extends Application {
 
-    static {
-        try {
-            // pls make sure "opencv_java412.[ext]" exists and has the desired extension for your os
-            //linux
-//            System.load(new File(Core.NATIVE_LIBRARY_NAME + ".so").getAbsolutePath());
-            //win
-//            System.load(new File(Core.NATIVE_LIBRARY_NAME + ".dll").getAbsolutePath());
-            //mac
-            System.load(new File(Core.NATIVE_LIBRARY_NAME + ".dylib").getAbsolutePath());
-        } catch (UnsatisfiedLinkError e) {
-            System.err.println("Native opencv library failed to load.\n" + e);
-            System.exit(1);
-        }
-    }
+//    static {
+//        try {
+//            // pls make sure "opencv_java412.[ext]" exists and has the desired extension for your os
+//            //linux
+////            System.load(new File(Core.NATIVE_LIBRARY_NAME + ".so").getAbsolutePath());
+//            //win
+////            System.load(new File(Core.NATIVE_LIBRARY_NAME + ".dll").getAbsolutePath());
+//            //mac
+//            System.load(new File(Core.NATIVE_LIBRARY_NAME + ".dylib").getAbsolutePath());
+//        } catch (UnsatisfiedLinkError e) {
+//            System.err.println("Native opencv library failed to load.\n" + e);
+//            System.exit(1);
+//        }
+//    }
 
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -43,7 +42,7 @@ public class GUI extends Application {
                 JFoenixResources.load("css/jfoenix-design.css").toExternalForm(),
                 GUI.class.getResource("/css/main.css").toExternalForm()
         );
-        primaryStage.setTitle("OpenCV Java");
+        primaryStage.setTitle("AStar Pathfinding Algorithm");
         primaryStage.setScene(scene);
         primaryStage.show();
     }

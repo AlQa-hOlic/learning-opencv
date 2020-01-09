@@ -14,30 +14,30 @@
 <?import com.jfoenix.controls.JFXToolbar?>
 <?import javafx.scene.text.Text?>
 <?import com.jfoenix.controls.JFXComboBox?>
+<?import javafx.scene.canvas.Canvas?>
 <BorderPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="in.alqaholic.AStarPathFinding.controllers.MainController"
             stylesheets="@../css/main.css"
             fx:id="root">
     <top>
-        <HBox spacing="20" alignment="CENTER">
+        <HBox spacing="20">
             <padding>
-                <Insets topRightBottomLeft="10"></Insets>
+                <Insets topRightBottomLeft="5"></Insets>
             </padding>
-            <JFXButton fx:id="openBtn" styleClass="btn" prefHeight="35" text="Open Camera" onAction="#openCam"></JFXButton>
-            <JFXButton fx:id="closeBtn" styleClass="btn" prefHeight="35" text="Stop Camera" onAction="#closeCam"></JFXButton>
-
-            <JFXComboBox fx:id="algorithm"></JFXComboBox>
+            <JFXButton fx:id="load_bitmap" styleClass="btn" text="Load Bitmap"></JFXButton>
+            <JFXButton fx:id="save_bitmap" styleClass="btn" text="Save Bitmap"></JFXButton>
+            <JFXButton fx:id="find_path" onAction="#findPath" styleClass="btn" text="Find Path"></JFXButton>
+            <JFXButton fx:id="mark_obstacles" onAction="#onMarkObstacles" styleClass="btn" text="Mark Obstacles"></JFXButton>
         </HBox>
     </top>
     <center>
-        <HBox spacing="20">
+        <FlowPane>
             <padding>
                 <Insets topRightBottomLeft="20"></Insets>
             </padding>
-            <ImageView fx:id="src_image_view" fitWidth="450" fitHeight="450" preserveRatio="true"></ImageView>
-            <ImageView fx:id="dst_image_view" fitWidth="450" fitHeight="450" preserveRatio="true"></ImageView>
-        </HBox>
+            <Canvas height="480" onMousePressed="#canvasMousePressed" width="480" fx:id="grid" />
+        </FlowPane>
     </center>
     <bottom>
     </bottom>
