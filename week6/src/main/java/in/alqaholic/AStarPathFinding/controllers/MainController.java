@@ -1,6 +1,8 @@
 package in.alqaholic.AStarPathFinding.controllers;
 
 import com.jfoenix.controls.JFXButton;
+import in.alqaholic.AStarPathFinding.astar.Cell;
+import in.alqaholic.AStarPathFinding.astar.Grid;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -10,10 +12,15 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.net.URL;
-import java.util.PriorityQueue;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class MainController implements Initializable {
@@ -26,6 +33,8 @@ public class MainController implements Initializable {
     private Canvas grid;
     private GraphicsContext ctx;
 
+    private Grid astarGrid;
+
     @FXML
     private JFXButton load_bitmap;
     @FXML
@@ -36,6 +45,8 @@ public class MainController implements Initializable {
     private JFXButton mark_obstacles;
 
     private boolean isMarkingObstacles;
+
+    private int startI = -1, startJ = -1, endI = -1, endJ = -1;
 
     public void setStage(Stage parent) {
         this.parent = parent;
@@ -48,23 +59,14 @@ public class MainController implements Initializable {
         ctx.fillRect(0,0, grid.getWidth(),grid.getHeight());
         isMarkingObstacles = false;
 
-        AStar.grid = new AStar.Cell[48][48];
-        AStar.closed = new boolean[48][48];
-        AStar.open = new PriorityQueue<>((Object o1, Object o2) -> {
-            AStar.Cell c1 = (AStar.Cell)o1;
-            AStar.Cell c2 = (AStar.Cell)o2;
-
-            return Integer.compare(c1.finalCost, c2.finalCost);
-        });
+        astarGrid = new Grid(48,48);
 
         for (int y = 0; y < 48; y++) {
             for (int x = 0; x < 48; x++) {
-                AStar.grid[x][y] = new AStar.Cell(x,y);
-                ctx.setFill(Color.GRAY);
-                ctx.fillRect(x*10,y*10,10,10);
+                Cell cell = astarGrid.cellAt(x, y);
             }
         }
-
+        redrawCanvas();
 
     }
 
@@ -90,50 +92,110 @@ public class MainController implements Initializable {
         int x = (int)mouseEvent.getX() / 10;
         int y = (int)mouseEvent.getY() / 10;
         if (isMarkingObstacles) {
-            if(AStar.grid[x][y] == null) {
-                AStar.grid[x][y] = new AStar.Cell(x,y);
-                ctx.setFill(Color.GRAY);
-                ctx.fillRect(x*10,y*10, 10,10);
-            }
-            else {
-                AStar.setBlocked(x,y);
-                ctx.setFill(Color.WHITE);
-                ctx.fillRect(x*10,y*10, 10,10);
-            }
+            astarGrid.toggleBlocked(x, y);
+            redrawCanvas();
         }
         else {
             if (mouseEvent.isPrimaryButtonDown()) {
-                AStar.setStartCell(x,y);
-                ctx.setFill(Color.GREENYELLOW);
-                ctx.fillRect(x*10,y*10, 10,10);
+                startI = x;
+                startJ = y;
             }
             else if (mouseEvent.isSecondaryButtonDown()) {
-                AStar.setEndCell(x,y);
-                ctx.setFill(Color.CRIMSON);
-                ctx.fillRect(x*10,y*10, 10,10);
+                endI = x;
+                endJ = y;
             }
+            redrawCanvas();
+        }
+    }
+
+    private void redrawCanvas() {
+        for (int y = 0; y < 48; y++) {
+            for (int x = 0; x < 48; x++) {
+                if(!astarGrid.isBlocked(x, y)) {
+                    ctx.setFill(Color.GRAY);
+                    ctx.fillRect(x*10,y*10, 10,10);
+                }
+                else {
+                    ctx.setFill(Color.WHITE);
+                    ctx.fillRect(x*10,y*10, 10,10);
+                }
+            }
+        }
+        if (startI != -1 && startJ != -1) {
+            ctx.setFill(Color.GREENYELLOW);
+            ctx.fillRect(startI*10,startJ*10, 10,10);
+        }
+        if (endI != -1 && endJ != -1) {
+            ctx.setFill(Color.CRIMSON);
+            ctx.fillRect(endI*10,endJ*10, 10,10);
         }
     }
 
     public void findPath(ActionEvent actionEvent) {
-        AStar.AStar();
-        if (AStar.grid[AStar.endI][AStar.endJ].parent == null) {
+        if (startI == -1 || startJ == -1 || endI == -1 || endJ == -1) {
+            new Alert(Alert.AlertType.ERROR, "Please define start and end points!", ButtonType.OK).showAndWait();
+            return;
+        }
+
+        List<Cell> path = astarGrid.astar(startI,startJ,endI,endJ);
+        if (path.isEmpty()) {
             new Alert(Alert.AlertType.ERROR, "Couldn't find path to the target!", ButtonType.OK).showAndWait();
         }
         else {
-            markPathToTarget(AStar.grid[AStar.endI][AStar.endJ].parent);
+            markPathToTarget(path);
         }
     }
 
-    private void markPathToTarget(AStar.Cell parent) {
-        if (parent.i == AStar.startI && parent.j == AStar.startJ) {
-            new Alert(Alert.AlertType.INFORMATION, "Found path to the target!", ButtonType.OK).showAndWait();
-            return;
+    private void markPathToTarget(List<Cell> path) {
+        path.forEach(cell -> {
+            ctx.setFill(Color.GREENYELLOW);
+            ctx.fillRect(cell.getI()*10,cell.getJ()*10, 10,10);
+        });
+    }
+
+    public void loadBitmap(ActionEvent actionEvent) {
+        try {
+            BufferedImage image = ImageIO.read(new File("untitled.bmp"));
+            if (image.getWidth() != 48 || image.getHeight() != 48) {
+                new Alert(Alert.AlertType.ERROR, "Invalid image format!", ButtonType.OK).showAndWait();
+                return;
+            }
+            astarGrid = new Grid(48,48);
+            startI = startJ = endI = endJ = -1;
+            for (int y = 0; y < 48; y++) {
+                for (int x = 0; x < 48; x++) {
+                    int rgb = image.getRGB(x,y);
+                    if ((byte)(rgb >> 8) != 0 && (byte)(rgb >> 16) != 0 && (byte)(rgb) != 0) {
+                        astarGrid.setBlocked(x, y);
+                    }
+                }
+            }
+            redrawCanvas();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-        else {
-            ctx.setFill(Color.DARKGREEN);
-            ctx.fillRect(parent.i*10,parent.j*10, 10,10);
-            markPathToTarget(parent.parent);
+    }
+
+    public void saveBitmap(ActionEvent actionEvent) {
+//        FileChooser chooser = new FileChooser();
+//        chooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Bitmap image file", "*.bmp"));
+//        File file = chooser.showSaveDialog(parent);
+//
+//        if (file == null || !file.exists()) {
+//            return;
+//        }
+//        else {
+        BufferedImage image = new BufferedImage(48,48,BufferedImage.TYPE_BYTE_BINARY);
+        for (int y = 0; y < 48; y++) {
+            for (int x = 0; x < 48; x++) {
+                image.setRGB(x, y, astarGrid.isBlocked(x,y)?0xffffffff:0xff000000);
+            }
         }
+        try {
+            ImageIO.write(image, "bmp", new File("untitled.bmp"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+//        }
     }
 }

@@ -25,8 +25,8 @@
             <padding>
                 <Insets topRightBottomLeft="5"></Insets>
             </padding>
-            <JFXButton fx:id="load_bitmap" styleClass="btn" text="Load Bitmap"></JFXButton>
-            <JFXButton fx:id="save_bitmap" styleClass="btn" text="Save Bitmap"></JFXButton>
+            <JFXButton fx:id="load_bitmap" onAction="#loadBitmap" styleClass="btn" text="Load Bitmap"></JFXButton>
+            <JFXButton fx:id="save_bitmap" onAction="#saveBitmap" styleClass="btn" text="Save Bitmap"></JFXButton>
             <JFXButton fx:id="find_path" onAction="#findPath" styleClass="btn" text="Find Path"></JFXButton>
             <JFXButton fx:id="mark_obstacles" onAction="#onMarkObstacles" styleClass="btn" text="Mark Obstacles"></JFXButton>
         </HBox>
